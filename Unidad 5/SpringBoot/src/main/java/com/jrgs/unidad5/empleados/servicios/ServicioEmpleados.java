@@ -1,9 +1,8 @@
 package com.jrgs.unidad5.empleados.servicios;
 
 import com.jrgs.unidad5.empleados.modelo.dao.IEmpleadosDAO;
-import com.jrgs.unidad5.empleados.modelo.entidades.EntidadEmpleados;
+import com.jrgs.unidad5.empleados.modelo.entidades.Empleado;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,20 +13,20 @@ public class ServicioEmpleados {
     @Autowired
     private IEmpleadosDAO empleadosDAO;
 
-    public List<EntidadEmpleados> buscarEmpleados() {
-        return (List<EntidadEmpleados>) empleadosDAO.findAll();
+    public List<Empleado> buscarEmpleados() {
+        return (List<Empleado>) empleadosDAO.findAll();
     }
 
-    public Optional<EntidadEmpleados> buscarEmpleadoPorCodigo(int id) {
+    public Optional<Empleado> buscarEmpleadoPorCodigo(int id) {
         return empleadosDAO.findById(id);
     }
 
-    public EntidadEmpleados guardarEmpleado(EntidadEmpleados empleado) {
+    public Empleado guardarEmpleado(Empleado empleado) {
         return empleadosDAO.save(empleado);
     }
 
-    public boolean actualizarEmpleado(int id, EntidadEmpleados nuevoEmpleado) {
-        Optional<EntidadEmpleados> empleado = buscarEmpleadoPorCodigo(id);
+    public boolean actualizarEmpleado(int id, Empleado nuevoEmpleado) {
+        Optional<Empleado> empleado = buscarEmpleadoPorCodigo(id);
         if(empleado.isPresent()) {
             empleado.get().setNombre(nuevoEmpleado.getNombre());
             empleado.get().setPuesto(nuevoEmpleado.getPuesto());
@@ -40,7 +39,7 @@ public class ServicioEmpleados {
     }
 
     public boolean borrarEmpleado(int id) {
-        Optional<EntidadEmpleados> empleado = buscarEmpleadoPorCodigo(id);
+        Optional<Empleado> empleado = buscarEmpleadoPorCodigo(id);
         if(empleado.isPresent()) {
             empleadosDAO.deleteById(id);
             return true;
@@ -49,7 +48,7 @@ public class ServicioEmpleados {
         }
     }
 
-    public List<EntidadEmpleados> buscarEmpleadosPorPuesto(String puesto) {
+    public List<Empleado> buscarEmpleadosPorPuesto(String puesto) {
         return empleadosDAO.findByPuestoContains(puesto);
     }
 }

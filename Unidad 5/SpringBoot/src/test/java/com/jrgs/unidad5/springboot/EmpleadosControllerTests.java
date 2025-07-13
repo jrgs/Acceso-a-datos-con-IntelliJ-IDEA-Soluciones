@@ -1,7 +1,7 @@
 package com.jrgs.unidad5.springboot;
 
 import com.jrgs.unidad5.empleados.Application;
-import com.jrgs.unidad5.empleados.modelo.entidades.EntidadEmpleados;
+import com.jrgs.unidad5.empleados.modelo.entidades.Empleado;
 import com.jrgs.unidad5.empleados.controladores.ControladorEmpleados;
 import com.jrgs.unidad5.empleados.servicios.ServicioEmpleados;
 import org.junit.jupiter.api.BeforeEach;
@@ -37,14 +37,14 @@ class EmpleadosControllerTests {
     @Test
     void buscarEmpleados() {
         // Arrange
-        List<EntidadEmpleados> empleados = new ArrayList<>();
-        empleados.add(new EntidadEmpleados(1000, "Nombre1", "Puesto1", 10));
-        empleados.add(new EntidadEmpleados(1001, "Nombre2", "Puesto2", 20));
+        List<Empleado> empleados = new ArrayList<>();
+        empleados.add(new Empleado(1000, "Nombre1", "Puesto1", 10));
+        empleados.add(new Empleado(1001, "Nombre2", "Puesto2", 20));
 
         when(servicioEmpleados.buscarEmpleados()).thenReturn(empleados);
 
         // Act
-        List<EntidadEmpleados> result = controladorEmpleados.buscarEmpleados(null);
+        List<Empleado> result = controladorEmpleados.buscarEmpleados(null);
 
         // Assert
         assertEquals(2, result.size());
@@ -54,12 +54,12 @@ class EmpleadosControllerTests {
     void buscarEmpleadoPorIdExistente() {
         // Arrange
         int id = 1000;
-        EntidadEmpleados empleado = new EntidadEmpleados(id, "Nombre1", "Puesto1", 10);
+        Empleado empleado = new Empleado(id, "Nombre1", "Puesto1", 10);
 
         when(servicioEmpleados.buscarEmpleadoPorCodigo(id)).thenReturn(Optional.of(empleado));
 
         // Act
-        ResponseEntity<EntidadEmpleados> result = controladorEmpleados.buscarEmpleadoPorId(id);
+        ResponseEntity<Empleado> result = controladorEmpleados.buscarEmpleadoPorId(id);
 
         // Assert
         assertEquals(200, result.getStatusCodeValue());
@@ -74,7 +74,7 @@ class EmpleadosControllerTests {
         when(servicioEmpleados.buscarEmpleadoPorCodigo(id)).thenReturn(Optional.empty());
 
         // Act
-        ResponseEntity<EntidadEmpleados> result = controladorEmpleados.buscarEmpleadoPorId(id);
+        ResponseEntity<Empleado> result = controladorEmpleados.buscarEmpleadoPorId(id);
 
         // Assert
         assertEquals(404, result.getStatusCodeValue());
@@ -83,22 +83,22 @@ class EmpleadosControllerTests {
     @Test
     void guardarEmpleado() {
         // Arrange
-        EntidadEmpleados empleado = new EntidadEmpleados(1000, "Nombre1", "Puesto1", 10);
+        Empleado empleado = new Empleado(1000, "Nombre1", "Puesto1", 10);
 
-        when(servicioEmpleados.guardarEmpleado(any(EntidadEmpleados.class))).thenReturn(empleado);
+        when(servicioEmpleados.guardarEmpleado(any(Empleado.class))).thenReturn(empleado);
 
         // Act
         ResponseEntity<?> result = controladorEmpleados.guardarEmpleado(empleado);
 
         // Assert
-        assertEquals(empleado, (EntidadEmpleados) result.getBody());
+        assertEquals(empleado, (Empleado) result.getBody());
     }
 
     @Test
     void actualizarEmpleadoExistente() {
         // Arrange
         int id = 1000;
-        EntidadEmpleados nuevoEmpleado = new EntidadEmpleados(id, "NuevoNombre", "NuevoPuesto", 10);
+        Empleado nuevoEmpleado = new Empleado(id, "NuevoNombre", "NuevoPuesto", 10);
         when(servicioEmpleados.actualizarEmpleado(id, nuevoEmpleado)).thenReturn(true);
 
         // Act
@@ -113,7 +113,7 @@ class EmpleadosControllerTests {
     void actualizarEmpleadoNoExistente() {
         // Arrange
         int id = 1099;
-        EntidadEmpleados nuevoEmpleado = new EntidadEmpleados(1000, "NuevoNombre", "NuevoPuesto", 10);
+        Empleado nuevoEmpleado = new Empleado(1000, "NuevoNombre", "NuevoPuesto", 10);
 
         when(servicioEmpleados.actualizarEmpleado(id, nuevoEmpleado)).thenReturn(false);
 

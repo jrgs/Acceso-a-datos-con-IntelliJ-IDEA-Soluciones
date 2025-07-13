@@ -2,12 +2,11 @@ package com.jrgs.unidad5.springboot;
 
 import com.jrgs.unidad5.empleados.Application;
 import com.jrgs.unidad5.empleados.modelo.dao.IEmpleadosDAO;
-import com.jrgs.unidad5.empleados.modelo.entidades.EntidadEmpleados;
+import com.jrgs.unidad5.empleados.modelo.entidades.Empleado;
 import com.jrgs.unidad5.empleados.servicios.ServicioEmpleados;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,14 +29,14 @@ class EmpleadosServicioTests {
     @Test
     void buscarEmpleados() {
         // Preparación
-        List<EntidadEmpleados> empleados = new ArrayList<>();
-        empleados.add(new EntidadEmpleados(1000, "Nombre1", "Puesto1", 10));
-        empleados.add(new EntidadEmpleados(1001, "Nombre2", "Puesto2", 20));
+        List<Empleado> empleados = new ArrayList<>();
+        empleados.add(new Empleado(1000, "Nombre1", "Puesto1", 10));
+        empleados.add(new Empleado(1001, "Nombre2", "Puesto2", 20));
 
         when(empleadosDAO.findAll()).thenReturn(empleados);
 
         // Ejecución
-        List<EntidadEmpleados> result = servicioEmpleados.buscarEmpleados();
+        List<Empleado> result = servicioEmpleados.buscarEmpleados();
 
         // Comprobación
         assertEquals(2, result.size());
@@ -47,12 +46,12 @@ class EmpleadosServicioTests {
     void buscarEmpleadoPorIdExistente() {
         // Preparación
         int id = 1000;
-        EntidadEmpleados empleado = new EntidadEmpleados(id, "Nombre1", "Puesto1", 10);
+        Empleado empleado = new Empleado(id, "Nombre1", "Puesto1", 10);
 
         when(empleadosDAO.findById(id)).thenReturn(Optional.of(empleado));
 
         // Ejecución
-        Optional<EntidadEmpleados> result = servicioEmpleados.buscarEmpleadoPorCodigo(id);
+        Optional<Empleado> result = servicioEmpleados.buscarEmpleadoPorCodigo(id);
 
         // Comprobación
         assertEquals(empleado, result.get());
@@ -66,7 +65,7 @@ class EmpleadosServicioTests {
         when(empleadosDAO.findById(id)).thenReturn(Optional.empty());
 
         // Ejecución
-        Optional<EntidadEmpleados> result = servicioEmpleados.buscarEmpleadoPorCodigo(id);
+        Optional<Empleado> result = servicioEmpleados.buscarEmpleadoPorCodigo(id);
 
         // Comprobación
         assertEquals(result, Optional.empty());
@@ -75,12 +74,12 @@ class EmpleadosServicioTests {
     @Test
     void guardarEmpleado() {
         // Preparación
-        EntidadEmpleados empleado = new EntidadEmpleados(1000, "Nombre1", "Puesto1", 10);
+        Empleado empleado = new Empleado(1000, "Nombre1", "Puesto1", 10);
 
-        when(empleadosDAO.save(any(EntidadEmpleados.class))).thenReturn(empleado);
+        when(empleadosDAO.save(any(Empleado.class))).thenReturn(empleado);
 
         // Ejecución
-        EntidadEmpleados result = servicioEmpleados.guardarEmpleado(empleado);
+        Empleado result = servicioEmpleados.guardarEmpleado(empleado);
 
         // Comprobación
         assertEquals(empleado, result);
@@ -90,11 +89,11 @@ class EmpleadosServicioTests {
     void actualizarEmpleadoExistente() {
         // Preparación
         int id = 1000;
-        EntidadEmpleados nuevoEmpleado = new EntidadEmpleados(id, "NuevoNombre", "NuevoPuesto", 10);
-        EntidadEmpleados empleadoExistente = new EntidadEmpleados(id, "NombreAntiguo", "PuestoAntiguo", 20);
+        Empleado nuevoEmpleado = new Empleado(id, "NuevoNombre", "NuevoPuesto", 10);
+        Empleado empleadoExistente = new Empleado(id, "NombreAntiguo", "PuestoAntiguo", 20);
 
         when(empleadosDAO.findById(id)).thenReturn(Optional.of(empleadoExistente));
-        when(empleadosDAO.save(any(EntidadEmpleados.class))).thenReturn(empleadoExistente);
+        when(empleadosDAO.save(any(Empleado.class))).thenReturn(empleadoExistente);
 
         // Ejecución
        boolean result = servicioEmpleados.actualizarEmpleado(id, nuevoEmpleado);
@@ -108,7 +107,7 @@ class EmpleadosServicioTests {
     void actualizarEmpleadoNoExistente() {
         // Preparación
         int id = 1099;
-        EntidadEmpleados nuevoEmpleado = new EntidadEmpleados(1000, "NuevoNombre", "NuevoPuesto", 10);
+        Empleado nuevoEmpleado = new Empleado(1000, "NuevoNombre", "NuevoPuesto", 10);
 
         when(empleadosDAO.findById(id)).thenReturn(Optional.empty());
 
@@ -123,7 +122,7 @@ class EmpleadosServicioTests {
     void borrarEmpleadoExistente() {
         // Preparación
         int id = 1000;
-        EntidadEmpleados empleadoExistente = new EntidadEmpleados(id,"NombreAntiguo", "PuestoAntiguo", 10);
+        Empleado empleadoExistente = new Empleado(id,"NombreAntiguo", "PuestoAntiguo", 10);
 
         when(empleadosDAO.findById(id)).thenReturn(Optional.of(empleadoExistente));
 

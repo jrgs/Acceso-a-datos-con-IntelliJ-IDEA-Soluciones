@@ -1,23 +1,20 @@
-package com.jrgs.unidad5.empleados.modelo.entidades;
+package org.example.springbootthymeleaf.modelo.entidades;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import javax.persistence.*;
-import java.util.List;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name = "departamentos", schema = "public", catalog = "Empleados")
-public class EntidadDepartamentos {
+@Table(name = "departamentos")
+public class Departamento {
     private int depno;
     private String nombre;
     private String ubicacion;
     //private List<EntidadEmpleados> empleados;
 
-    public EntidadDepartamentos() {
+    public Departamento() {
 
     }
 
-    public EntidadDepartamentos(int depno, String nombre, String ubicacion) {
+    public Departamento(int depno, String nombre, String ubicacion) {
         this.depno = depno;
         this.nombre = nombre;
         this.ubicacion = ubicacion;
@@ -58,7 +55,7 @@ public class EntidadDepartamentos {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        EntidadDepartamentos that = (EntidadDepartamentos) o;
+        Departamento that = (Departamento) o;
 
         if (depno != that.depno) return false;
         if (nombre != null ? !nombre.equals(that.nombre) : that.nombre != null) return false;

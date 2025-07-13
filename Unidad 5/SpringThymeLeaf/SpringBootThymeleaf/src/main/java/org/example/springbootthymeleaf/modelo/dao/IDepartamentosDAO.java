@@ -1,17 +1,17 @@
 package org.example.springbootthymeleaf.modelo.dao;
 
-import org.example.springbootthymeleaf.modelo.entidades.EntidadDepartamentos;
+import org.example.springbootthymeleaf.modelo.entidades.Departamento;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface IDepartamentosDAO extends CrudRepository<EntidadDepartamentos, Integer> {
-    List<EntidadDepartamentos> findByDepnoGreaterThan(int depno);
+public interface IDepartamentosDAO extends CrudRepository<Departamento, Integer> {
+    List<Departamento> findByDepnoGreaterThan(int depno);
 
-    List<EntidadDepartamentos> findByUbicacionIsIgnoreCase(String ubicacion);
+    List<Departamento> findByUbicacionIsIgnoreCase(String ubicacion);
 
-    List<EntidadDepartamentos> findByUbicacionEqualsOrUbicacionEquals(String firstPlace, String secondPlace);
+    List<Departamento> findByUbicacionEqualsOrUbicacionEquals(String firstPlace, String secondPlace);
 }
 

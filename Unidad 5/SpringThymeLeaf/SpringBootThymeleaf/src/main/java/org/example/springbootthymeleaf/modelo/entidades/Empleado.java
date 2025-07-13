@@ -3,8 +3,8 @@ package org.example.springbootthymeleaf.modelo.entidades;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "empleados", schema = "public", catalog = "Empleados")
-public class EntidadEmpleados {
+@Table(name = "empleados")
+public class Empleado {
     private int empno;
     private String nombre;
     private String puesto;
@@ -13,13 +13,13 @@ public class EntidadEmpleados {
 
     // Needed by Hibernate
     //
-    public EntidadEmpleados() {
+    public Empleado() {
 
     }
 
     // Needed for tests
     //
-    public EntidadEmpleados(int empno, String nombre, String puesto, int depno) {
+    public Empleado(int empno, String nombre, String puesto, int depno) {
         this.empno = empno;
         this.nombre = nombre;
         this.puesto = puesto;
@@ -61,7 +61,7 @@ public class EntidadEmpleados {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        EntidadEmpleados that = (EntidadEmpleados) o;
+        Empleado that = (Empleado) o;
 
         if (empno != that.empno) return false;
         if (nombre != null ? !nombre.equals(that.nombre) : that.nombre != null) return false;
