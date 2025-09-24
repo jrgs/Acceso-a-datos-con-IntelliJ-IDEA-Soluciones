@@ -17,6 +17,7 @@
         <div class="form-group">
             <label for="nombre">Nombre:</label>
             <input type="text" id="nombre" name="nombre" required>
+            <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" class="error_message"></span>
         </div>
         <div class="form-group">
             <label for="ubicacion">Ubicación:</label>

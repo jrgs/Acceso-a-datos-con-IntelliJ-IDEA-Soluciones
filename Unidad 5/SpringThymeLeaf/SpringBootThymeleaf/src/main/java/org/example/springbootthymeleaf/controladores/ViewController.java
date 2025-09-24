@@ -1,14 +1,17 @@
 package org.example.springbootthymeleaf.controladores;
 
+import jakarta.validation.Valid;
 import org.example.springbootthymeleaf.modelo.dao.IEmpleadosDAO;
 import org.example.springbootthymeleaf.modelo.entidades.Empleado;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import org.example.springbootthymeleaf.modelo.dao.IDepartamentosDAO;
 import org.example.springbootthymeleaf.modelo.entidades.Departamento;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
@@ -73,17 +76,23 @@ public class ViewController {
     }
 
     @PostMapping("/altadepartamento")
-    public String crearDepartamento(@ModelAttribute Departamento departamento, Model model) {
+    public String crearDepartamento(@Valid @ModelAttribute Departamento departamento,
+                                    BindingResult result,
+                                    RedirectAttributes attributes) {
+        if (result.hasErrors()) {
+            return "altadepartamento";
+        }
         if (!departamentosDAO.existsById(departamento.getDepno()))
         {
             departamentosDAO.save(departamento);
-            model.addAttribute("tipo_operacion", "ok");
-            model.addAttribute("mensaje", "Departamento creado correctamente");
+            attributes.addFlashAttribute("tipo_operacion", "ok");
+            attributes.addFlashAttribute("mensaje", "Departamento creado correctamente");
         }
         else {
-            model.addAttribute("tipo_operacion", "error");
-            model.addAttribute("mensaje", "Error al crear el departamento: clave duplicada");
+            attributes.addFlashAttribute("tipo_operacion", "error");
+            attributes.addFlashAttribute("mensaje",
+                            "Error al crear el departamento: clave duplicada");
         }
-        return "altadepartamento";
+        return "redirect:/altadepartamento";
     }
 }

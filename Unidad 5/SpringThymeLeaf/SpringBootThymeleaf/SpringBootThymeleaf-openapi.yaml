@@ -1,0 +1,131 @@
+openapi: "3.1.0"
+info:
+  title: "SpringBootThymeleaf API"
+  description: "SpringBootThymeleaf API"
+  version: "1.0.0"
+servers:
+  - url: "https://SpringBootThymeleaf"
+paths:
+  /altadepartamento:
+    post:
+      summary: "POST altadepartamento"
+      operationId: "crearDepartamento"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+    get:
+      summary: "GET altadepartamento"
+      operationId: "altaDepartamento"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+  /:
+    get:
+      summary: "GET "
+      operationId: "index"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+  /index:
+    get:
+      summary: "GET index"
+      operationId: "index"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+  /index.html:
+    get:
+      summary: "GET index.html"
+      operationId: "index"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+  /index.htm:
+    get:
+      summary: "GET index.htm"
+      operationId: "index"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+  /verdepartamentos:
+    get:
+      summary: "GET verdepartamentos"
+      operationId: "mostrarDepartamentos"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+  /verdepartamentos.html:
+    get:
+      summary: "GET verdepartamentos.html"
+      operationId: "mostrarDepartamentos"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+  /verempleados:
+    get:
+      summary: "GET verempleados"
+      operationId: "mostrarEmpleados"
+      parameters:
+        - name: "depno"
+          in: "query"
+          required: false
+          schema:
+            type: "integer"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+  /verempleado:
+    get:
+      summary: "GET verempleado"
+      operationId: "mostrarEmpleado"
+      parameters:
+        - name: "id"
+          in: "query"
+          required: true
+          schema:
+            type: "integer"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "string"
